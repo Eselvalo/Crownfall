@@ -14,12 +14,14 @@ int main() {
     int squareSize = 50;
     float squareSpeed = 200.0f; // pixels per second
 
-    // Set the target FPS (Frames Per Second)
-    SetTargetFPS(60);
+    
+
+   // Image backgroundImage = LoadImage("/map.png");
+    Texture2D backgroundTexture = LoadTextureFromImage(backgroundImage);
+    UnloadImage(backgroundImage); // Unload image from RAM, texture is on the GPU now
 
     // Main game loop
-    while (!WindowShouldClose()) { // Detect window close button or ESC key
-        // Update
+    while (!WindowShouldClose()) {
         if (IsKeyDown(KEY_RIGHT)) squarePosition.x += squareSpeed * GetFrameTime();
         if (IsKeyDown(KEY_LEFT)) squarePosition.x -= squareSpeed * GetFrameTime();
         if (IsKeyDown(KEY_UP)) squarePosition.y -= squareSpeed * GetFrameTime();
@@ -28,17 +30,20 @@ int main() {
         // Draw
         BeginDrawing();
 
-            ClearBackground(GREEN);
-
+            ClearBackground(RAYWHITE);
             DrawRectangle(squarePosition.x - squareSize / 2, squarePosition.y - squareSize / 2, squareSize, squareSize, BLACK);
+
+            // Draw the texture covering the whole screen
+            DrawTexture(backgroundTexture, 0, 0, WHITE);
+
+            // Additional drawing...
 
         EndDrawing();
     }
 
     // De-Initialization
+    UnloadTexture(backgroundTexture); // Unload texture
     CloseWindow(); // Close window and OpenGL context
 
     return 0;
 }
-
-
