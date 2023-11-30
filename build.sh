@@ -3,7 +3,7 @@
 # Define directories
 SRC_DIR="./"
 BIN_DIR="./bin"
-MAIN_FILE="$SRC_DIR/main.c" # Replace with your main source file
+MAIN_FILE="$SRC_DIR/main2.c" # Replace with your main source file
 OUTPUT="$BIN_DIR/your_program" # Replace with your desired output binary name
 
 # Create bin directory if it doesn't exist
