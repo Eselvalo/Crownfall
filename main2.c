@@ -1,49 +1,138 @@
 #include <stdio.h>
 #include <raylib.h>
+#include <math.h> // Include for sqrtf function
 
-int main() {
-    // Window dimensions
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 450
 
-    // Initialize the window
-    InitWindow(screenWidth, screenHeight, "Crownfall");
+typedef enum GameState { GAMEPLAY, BATTLE } GameState;
+GameState currentGameState = GAMEPLAY;
 
-    // Square properties
-    Vector2 squarePosition = { screenWidth / 2, screenHeight / 2 };
-    int squareSize = 50;
-    float squareSpeed = 200.0f; // pixels per second
+// Player and NPC variables
+Vector2 playerPosition;
+Vector2 npcPosition;
 
-    // Load and setup the background image
-    Image backgroundImage = LoadImage("./map.png");
-    Texture2D backgroundTexture = LoadTextureFromImage(backgroundImage);
-    UnloadImage(backgroundImage); // Unload image from RAM, texture is on the GPU now
+// Camera for scrolling
+Camera2D camera;
 
-    // Main game loop
-    while (!WindowShouldClose()) {
-        // Update square position
-        if (IsKeyDown(KEY_RIGHT)) squarePosition.x += squareSpeed * GetFrameTime();
-        else if (IsKeyDown(KEY_LEFT)) squarePosition.x -= squareSpeed * GetFrameTime();
-        else if (IsKeyDown(KEY_UP)) squarePosition.y -= squareSpeed * GetFrameTime();
-        else if (IsKeyDown(KEY_DOWN)) squarePosition.y += squareSpeed * GetFrameTime();
-        else 
-        // Draw
-        BeginDrawing();
+// Battle system variables
+int playerHealth = 100;
+int enemyHealth = 100;
 
-            ClearBackground(RAYWHITE);
+void InitGame() {
+    // Initialize player, NPC, and camera
+    playerPosition = (Vector2){ GetScreenWidth() / 2, GetScreenHeight() /2  };
+    
 
-            // Draw the texture covering the whole screen (background first)
-            DrawTexture(backgroundTexture, 0, 0, WHITE);
+    npcPosition = (Vector2){ 600, 400 };
+    camera.target = playerPosition;
+    camera.offset = (Vector2){ GetScreenWidth() / 2, GetScreenHeight() / 2 };
+    camera.rotation = 0.0f;
+    camera.zoom = 1.0f;
+}
 
-            // Draw the square
-            DrawRectangle(squarePosition.x - squareSize / 2, squarePosition.y - squareSize / 2, squareSize, squareSize, BLACK);
+void UpdateGameplay() {
+    // Player movement and camera update
+    Vector2 direction = {0};
+    if (IsKeyDown(KEY_RIGHT)) direction.x += 1.0f;
+    if (IsKeyDown(KEY_LEFT)) direction.x -= 1.0f;
+    if (IsKeyDown(KEY_UP)) direction.y -= 1.0f;
+    if (IsKeyDown(KEY_DOWN)) direction.y += 1.0f;
 
-        EndDrawing();
+    // Calculate direction vector length
+    float vectorLength = sqrtf(direction.x * direction.x + direction.y * direction.y);
+
+    // Normalize the direction vector if it's not zero
+    if (vectorLength > 0) {
+        direction.x /= vectorLength;
+        direction.y /= vectorLength;
     }
 
-    // De-Initialization
-    UnloadTexture(backgroundTexture);
-    CloseWindow(); 
+    // Move the player
+    float speed = 2.0f;
+    playerPosition.x += direction.x * speed;
+    playerPosition.y += direction.y * speed;
 
+    camera.target = playerPosition;
+
+    // Check for battle initiation
+    if (CheckCollisionRecs((Rectangle){ playerPosition.x - 20, playerPosition.y - 20, 40, 40 },
+                           (Rectangle){ npcPosition.x - 20, npcPosition.y - 20, 40, 40 })) {
+        currentGameState = BATTLE;
+    }
+}
+
+void DrawGameplay() {
+    BeginDrawing();
+    ClearBackground(RAYWHITE);
+
+    BeginMode2D(camera);
+
+    // Draw the dungeon and characters
+    DrawRectangle(0, 0, 1600, 1200, LIGHTGRAY); // Example dungeon size
+    DrawCircleV(playerPosition, 20, BLUE);
+    DrawCircleV(npcPosition, 20, RED);
+
+    EndMode2D();
+
+    EndDrawing();
+}
+
+void UpdateBattle() {
+    // Basic battle system logic
+    if (IsKeyPressed(KEY_ENTER)) {
+        enemyHealth -= 10; // Example attack
+        if (enemyHealth <= 0) {
+            currentGameState = GAMEPLAY;
+            enemyHealth = 100; // Reset enemy health for simplicity
+        }
+    }
+}
+
+void DrawBattle() {
+    BeginDrawing();
+    ClearBackground(BLACK);
+
+    // Draw battle UI
+    DrawText("Battle!", 350, 200, 20, WHITE);
+    DrawText(TextFormat("Player Health: %d", playerHealth), 10, 10, 20, WHITE);
+    DrawText(TextFormat("Enemy Health: %d", enemyHealth), 600, 10, 20, WHITE);
+
+    EndDrawing();
+}
+
+void UnloadGame() {
+    // Unload textures and resources
+}
+
+int main() {
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "RPG Game");
+    ToggleFullscreen();
+    int screenHeight = GetScreenHeight();
+    printf("The value of Height is: %d\n", screenHeight);
+    printf(GetScreenHeight());
+    InitGame();
+    printf(GetScreenWidth());
+    printf(GetScreenHeight());
+
+    SetTargetFPS(60);
+
+    while (!WindowShouldClose()) {
+        switch (currentGameState) {
+            case GAMEPLAY:
+                UpdateGameplay();
+                DrawGameplay();
+                break;
+
+            case BATTLE:
+                UpdateBattle();
+                DrawBattle();
+                break;
+        }
+    }
+
+    UnloadGame();
+    CloseWindow();
     return 0;
 }
+
