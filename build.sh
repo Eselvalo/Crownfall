@@ -11,7 +11,7 @@ OUTPUT="$BIN_DIR/your_program" # Replace with your desired output binary name
 mkdir -p $BIN_DIR
 
 # Compilation command
-clang $MAIN_FILE $OTHER_FILE -o $OUTPUT -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 -lglfw
+clang $MAIN_FILE $OTHER_FILE -o $OUTPUT -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 
 # Check if compilation was successful
 if [ $? -eq 0 ]; then

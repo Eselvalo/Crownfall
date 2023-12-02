@@ -6,11 +6,11 @@ typedef struct character {
     Color colore;
     Texture2D texture;
 
-} character;
+} *character_;
 
-void initCharacter(Vector2 pos, Texture2D tex, character personaggio);
+void initCharacter(Vector2 pos, Texture2D tex, character_ personaggio);
 
-void drawCharacter(character personaggio);
+void drawCharacter(character_ personaggio);
 
-void updateCharacter(character personaggio);
+void updateCharacter(character_ personaggio);
     

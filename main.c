@@ -53,7 +53,7 @@ int main() {
     UnloadImage(characterImage); // Unload image from RAM, texture is on the GPU now
     
     // inizializzazione personaggio
-    character player;
+    character_ player = NULL;
     Vector2 squarePosition = { screenWidth / 2, screenHeight / 2 };
     int squareSize = 50;
     float squareSpeed = 200.0f; // pixels per second
