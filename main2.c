@@ -4,14 +4,12 @@
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 450
-
 typedef enum GameState { GAMEPLAY, BATTLE } GameState;
 GameState currentGameState = GAMEPLAY;
 
 // Player and NPC variables
 Vector2 playerPosition;
 Vector2 npcPosition;
-
 // Camera for scrolling
 Camera2D camera;
 
@@ -20,13 +18,15 @@ int playerHealth = 100;
 int enemyHealth = 100;
 
 void InitGame() {
+    int px = GetScreenWidth();
+    int py = GetScreenHeight();
     // Initialize player, NPC, and camera
-    playerPosition = (Vector2){ GetScreenWidth() / 2, GetScreenHeight() /2  };
+    playerPosition = (Vector2){ px/ 2,  py/2  };
     
 
     npcPosition = (Vector2){ 600, 400 };
     camera.target = playerPosition;
-    camera.offset = (Vector2){ GetScreenWidth() / 2, GetScreenHeight() / 2 };
+    camera.offset = (Vector2){ px / 2, py / 2 };
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
 }
@@ -102,19 +102,20 @@ void DrawBattle() {
 }
 
 void UnloadGame() {
-    // Unload textures and resources
+    
 }
 
 int main() {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "RPG Game");
     ToggleFullscreen();
     int screenHeight = GetScreenHeight();
+    int screenWidth = GetScreenWidth();
     printf("The value of Height is: %d\n", screenHeight);
-    printf(GetScreenHeight());
+    printf("The value of Width is: %d\n", screenWidth);
     InitGame();
-    printf(GetScreenWidth());
-    printf(GetScreenHeight());
-
+    printf("The value of Height is: %d\n", screenHeight);
+    printf("The value of Width is: %d\n", screenWidth);
+   
     SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
