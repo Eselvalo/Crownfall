@@ -16,7 +16,7 @@ The project is in its conceptual phase, and no code has been implemented. As dev
 ## Technologies Used
 
 - [Raylib](https://www.raylib.com/): A C library for making 2D and 3D games
-  
+
 ## Contribution Guidelines
 
 Contributions are not open at the moment, as the project is in its early stages. Once a solid foundation is established, contribution guidelines will be provided.
