@@ -10,8 +10,8 @@ The project is in its conceptual phase, and no code has been implemented. As dev
 
 ## Features
 
-- Dungeon exploration in the style of Dungeons & Dragons
-- Fully destructible environment
+- Dungeon exploration, minions, awesome perks
+- Fully procedural environment
 
 ## Technologies Used
 
