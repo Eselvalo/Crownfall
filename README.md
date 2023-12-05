@@ -2,7 +2,7 @@
 
 ## Overview
 
-Crownfall is an exciting RPG dungeon game inspired by Dungeons & Dragons, featuring a fully destructible environment. Currently, the project is in the early stages, with no real implementation, and the code is not yet in alpha. This README serves as a placeholder for future development.
+Crownfall is an exciting RPG dungeon game, featuring a fully procedural environment. Currently, the project is in the early stages, with no real implementation, and the code is not yet in alpha. This README serves as a placeholder for future development.
 
 ## Project Status
 
