@@ -18,8 +18,8 @@ int playerHealth = 100;
 int enemyHealth = 100;
 
 void InitGame() {
-    int px = GetScreenWidth();
-    int py = GetScreenHeight();
+    int px = GetRenderWidth();
+    int py = GetRenderHeight();
     // Initialize player, NPC, and camera
     playerPosition = (Vector2){ px/ 2,  py/2  };
     
@@ -106,8 +106,11 @@ void UnloadGame() {
 }
 
 int main() {
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "RPG Game");
+    int Height = 400;
+    int Width = 800;
+    InitWindow(Width, Height, "RPG Game");
     ToggleFullscreen();
+  
     int screenHeight = GetScreenHeight();
     int screenWidth = GetScreenWidth();
     printf("The value of Height is: %d\n", screenHeight);
