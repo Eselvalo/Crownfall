@@ -1,16 +1,17 @@
 #include <raylib.h>
+#include <stdlib.h>
+
 
 typedef struct character {
-    int posizione[2];
-    int dimensioni[2]; // x e y
-    Color colore;
+    Rectangle sprite;
     Texture2D texture;
+} character;
 
-} *character_;
+typedef struct character *ptrCharacter;
 
-void initCharacter(Vector2 pos, Texture2D tex, character_ personaggio);
+void initCharacter(ptrCharacter personaggio);
 
-void drawCharacter(character_ personaggio);
+void drawCharacter(ptrCharacter personaggio);
 
-void updateCharacter(character_ personaggio);
+void updateCharacter(ptrCharacter personaggio);
     

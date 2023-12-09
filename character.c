@@ -1,46 +1,41 @@
 #include "character.h"
 
-void initCharacter(Vector2 pos, Texture2D tex, character_ personaggio){
-
-    character init;
-    personaggio = init;
-    personaggio->dimensioni[0] = 100.0f;
-    personaggio->dimensioni[1] = 300.0f;
-
-    personaggio->posizione[0] = 100;
-    personaggio->posizione[1] = 200;
-    printf("La x e': %d\n", personaggio->posizione[0]);
-    printf("La y e': %d\n", personaggio->posizione[1]);
-  //  personaggio.texture = tex;
-
-  //  personaggio.colore = GREEN;
-
-}
-
-
-void drawCharacter(character_ personaggio){
-
-
-    printf("dentro draw la x e': %d\n", personaggio->posizione[0]);
-    printf("dentro draw la y e': %d\n", personaggio->posizione[1]);
-    //rawTexture(personaggio.texture, personaggio.posizione.x, personaggio.posizione.y, WHITE);
+void initCharacter(ptrCharacter personaggio){
     
-    //DrawRectangle(150, 150, 100, 200, BLACK);
-    DrawRectangle(personaggio->posizione[0], personaggio->posizione[1], personaggio->dimensioni[0], personaggio->dimensioni[1], GREEN);
+    Image characterImage = LoadImage("/home/sdroggio/crownfall/character.png");
+    ImageResize(&characterImage, personaggio->sprite.width, personaggio->sprite.height);
+    Texture2D characterTexture = LoadTextureFromImage(characterImage);
+    UnloadImage(characterImage);
 
+    personaggio->sprite.x = 200;
+    personaggio->sprite.y = 300;
+
+    personaggio->sprite.width = 30.0f;
+    personaggio->sprite.height = 50.0f;
+    
+    personaggio->texture = characterTexture;
+    UnloadTexture(characterTexture);
 
 }
 
 
-void updateCharacter(character_ personaggio){
+void drawCharacter(ptrCharacter personaggio){
+
+    DrawRectangle(personaggio->sprite.x, personaggio->sprite.y, personaggio->sprite.width, personaggio->sprite.height, GREEN);
+    DrawTexture(personaggio->texture, personaggio->sprite.x, personaggio->sprite.y, WHITE);
+
+}
+
+
+void updateCharacter(ptrCharacter personaggio){
 
 
 // Update square position
-    /*    if (IsKeyDown(KEY_RIGHT))   personaggio.posizione.x += 200 * GetFrameTime();
-        if (IsKeyDown(KEY_LEFT)) personaggio.posizione.x -= 200 * GetFrameTime();
-        if (IsKeyDown(KEY_UP)) personaggio.posizione.y -= 200 * GetFrameTime();
-        if (IsKeyDown(KEY_DOWN)) personaggio.posizione.y += 200 * GetFrameTime();
-*/
+        if (IsKeyDown(KEY_LEFT))   personaggio->sprite.x -= 200.0f * GetFrameTime();
+        if (IsKeyDown(KEY_RIGHT)) personaggio->sprite.x += 200.0f * GetFrameTime();
+        if (IsKeyDown(KEY_DOWN)) personaggio->sprite.y += 200.0f * GetFrameTime();
+        if (IsKeyDown(KEY_UP)) personaggio->sprite.y -= 200.0f * GetFrameTime();
+
 
 
 }
