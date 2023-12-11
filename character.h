@@ -1,5 +1,7 @@
+#pragma once
 #include <raylib.h>
 #include <stdlib.h>
+#include "map.h"
 
 
 typedef struct character {
@@ -9,7 +11,7 @@ typedef struct character {
 
 typedef struct character *ptrCharacter;
 
-void initCharacter(ptrCharacter personaggio);
+void initCharacter(ptrCharacter personaggio, ptrMap mappa);
 
 void drawCharacter(ptrCharacter personaggio);
 

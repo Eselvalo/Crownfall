@@ -1,20 +1,20 @@
 #include "character.h"
 
-void initCharacter(ptrCharacter personaggio){
-    
-    Image characterImage = LoadImage("/home/sdroggio/crownfall/character.png");
-    ImageResize(&characterImage, personaggio->sprite.width, personaggio->sprite.height);
-    Texture2D characterTexture = LoadTextureFromImage(characterImage);
-    UnloadImage(characterImage);
+void initCharacter(ptrCharacter personaggio, ptrMap mappa){
 
-    personaggio->sprite.x = 200;
-    personaggio->sprite.y = 300;
+    personaggio->sprite.x = mappa->listRoom->shape.x + (mappa->listRoom->shape.width/2);
+    personaggio->sprite.y = mappa->listRoom->shape.y + (mappa->listRoom->shape.height/2);
 
     personaggio->sprite.width = 30.0f;
     personaggio->sprite.height = 50.0f;
     
+    Image characterImage = LoadImage("./character.png");
+    ImageResize(&characterImage, personaggio->sprite.width, personaggio->sprite.height);
+    Texture2D characterTexture = LoadTextureFromImage(characterImage);
+    UnloadImage(characterImage);
+
     personaggio->texture = characterTexture;
-    UnloadTexture(characterTexture);
+    //UnloadTexture(characterTexture);
 
 }
 
