@@ -14,7 +14,7 @@ void initCharacter(ptrCharacter personaggio){
     UnloadImage(characterImage);
 
     personaggio->texture = characterTexture;
-    UnloadTexture(characterTexture);
+    //UnloadTexture(characterTexture);
 
 }
 

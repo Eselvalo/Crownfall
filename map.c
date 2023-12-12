@@ -14,7 +14,7 @@ void initMap(ptrMap mappa){
     UnloadImage(backgroundImage);
 
     mappa->listRoom->tex = backgroundTexture;
-    UnloadTexture(backgroundTexture);
+    //UnloadTexture(backgroundTexture);
 
     
 }
@@ -32,10 +32,10 @@ ptrRoom createRoom() {
     ptrRoom newRoom = (ptrRoom)malloc(sizeof(room));
     if (newRoom != NULL) {
         // Inizializza i campi della stanza a valori di default o come desideri
-        newRoom->shape.height = 500;
-        newRoom->shape.width = 500;
-        newRoom->shape.x = 400;
-        newRoom->shape.y = 225;
+        newRoom->shape.height = HEIGHT;
+        newRoom->shape.width = WIDTH;
+        newRoom->shape.x = 0;
+        newRoom->shape.y = 0;
         // Inizializza altri campi della stanza, se necessario
         newRoom->nextRoom = NULL;
         newRoom->prevRoom = NULL;

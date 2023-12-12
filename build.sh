@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Define directories
-SRC_DIR="./"
+SRC_DIR="."
 BIN_DIR="./bin"
 MAIN_FILE="$SRC_DIR/main.c" # Replace with your main source file
 CHARACTER_FILE="$SRC_DIR/character.c"

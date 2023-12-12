@@ -6,10 +6,10 @@
 int main() {
 
 
-    InitWindow(0, 0, "Raylib Demo - Moving Square");
+    InitWindow(WIDTH, HEIGHT, "Raylib Demo - Moving Square");
     SetTargetFPS(60);
 
-    printf("INIZIALIZZIAZZIONE MAPPA\t");
+    printf("INIZIALIZZIAZZIONE MAPPA\n");
     map mappa;
     initMap(&mappa);
     printf("INIZIALIZZAZIONE MAPPA TEMINATA\n");

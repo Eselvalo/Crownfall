@@ -2,6 +2,8 @@
 #include <raylib.h>
 #include <stdlib.h>
 #include <stdio.h>
+#define WIDTH 500
+#define HEIGHT 500
 
 typedef struct room {
     Rectangle shape;
