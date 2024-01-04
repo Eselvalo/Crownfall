@@ -1,38 +1,38 @@
-
-#include <stdio.h>
-#include <raylib.h>
-#include <stdio.h>
-#include "character.h"
-#include "map.h"
+#include "types.h"
+#include "cam.h"
 
 int main() {
-
+    srand(time(NULL));
 
     InitWindow(0, 0, "Raylib Demo - Moving Square");
     SetTargetFPS(60);
 
-    printf("INIZIALIZZIAZZIONE MAPPA\t");
     map mappa;
     initMap(&mappa);
-    printf("INIZIALIZZAZIONE MAPPA TEMINATA\n");
     
     character player;
-    initCharacter(&player);  
+    initCharacter(&player, &mappa);  
     
-    
+    Camera2D camera1 = { 0 };
+    createCamera(&camera1, player.sprite.x, player.sprite.y);
 
     while (!WindowShouldClose()) {
         
         updateCharacter(&player);
+        updateMap(&mappa,&player);
+        aggiornaCamera(&camera1, player.sprite.x, player.sprite.y);
 
-        BeginDrawing();
+        
+            BeginDrawing();
+                
+                ClearBackground(BLACK);
+                BeginMode2D(camera1);
+                drawMap(&mappa);
+                
+                drawCharacter(&player);
+                EndMode2D();
+            EndDrawing();
 
-            ClearBackground(BLACK);
-
-            drawMap(&mappa);
-            drawCharacter(&player);
-
-        EndDrawing();
     }
 
     CloseWindow();
